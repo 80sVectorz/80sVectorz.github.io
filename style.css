@@ -16,6 +16,7 @@ body{
 	font-family: 'Open Sans', sans-serif;
 	margin: 0; 
 	padding: 0;
+	width: 100%;
     background: rgba(255, 0, 89, 1);
     background: -webkit-linear-gradient(45deg, rgba(255, 0, 89, 1) 0%, rgba(0, 179, 255, 1) 33%, rgba(255, 0, 89, 1) 66%, rgba(0, 179, 255, 1) 100%);
     background: -moz-linear-gradient(45deg, rgba(255, 0, 89, 1) 0%, rgba(0, 179, 255, 1) 33%, rgba(255, 0, 89, 1) 66%, rgba(0, 179, 255, 1) 100%);
@@ -26,7 +27,7 @@ body{
     -webkit-animation: errorBg 5s linear infinite;
     -moz-animation: errorBg 5s linear infinite;
     animation: errorBg 5s linear infinite;
-    height: 100vh;
+    height: 100%;
 }
 
 @-webkit-keyframes errorBg {
