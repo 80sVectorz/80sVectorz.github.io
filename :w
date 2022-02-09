@@ -56,9 +56,9 @@
 		</ul>
 		<h2 style="margin-left: 3%;">Open source projects of mine</h2>
 		<ul style="margin-left: 3%;">
-			<li><p><strong><a href="https://github.com/krijnlol/Portal">Portal</a></strong></p>
+			<li><p><strong><a href="https://github.com/krijnlol/Portal">Portal</a></strong></p><br>
 			<p>Portal is a tool that I made to solve the problem of having to type a lot when hopping directories</p></li>
-			<li><p><strong><a href="https://github.com/krijnlol/capMess">capMess</a></strong></p>
+			<li><p><strong><a href="https://github.com/krijnlol/capMess">capMess</a></strong></p><br>
 				<p>capMess is a tool that I made just for shits and giggles. It makes the capslock function randomly resulting in something along the lines of this:<br>
 				HeLo mY NaME iS ChIp</p></li>
 	</div>
