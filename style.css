@@ -4,6 +4,10 @@
 	border-radius: 10px;
 }
 
+.favcolor {
+	color: #34d5eb;
+}
+
 body{
 	font-family: 'Open Sans', sans-serif;
 	margin: 0; 
