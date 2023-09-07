@@ -1,0 +1,63 @@
+<style>
+{{ if .IsHome }}
+	{{- $default_style := resources.Get "sass/default.scss" | resources.ToCSS -}}
+	{{- $default_style.Content | safeCSS -}}
+{{ else }}
+	{{- $activity_style := resources.Get "sass/activity.scss" | resources.ToCSS | minify -}}
+	{{- $activity_style.Content | safeCSS -}}
+{{ end }}
+
+{{ $terminal_style := resources.Get "sass/white.scss" }}
+{{ with (eq .Site.Params.Terminal.scheme "vectrex") }}
+    {{- $terminal_style = resources.Get "sass/vectrex.scss" | resources.ToCSS | minify -}}
+    {{- $terminal_style = $terminal_style.Content -}}
+{{ end }}
+{{ with (eq .Site.Params.Terminal.scheme "shell-powershell") }}
+    {{- $terminal_style = resources.Get "sass/powershell.scss" | resources.ToCSS | minify -}}
+    {{- $terminal_style = $terminal_style.Content -}}
+{{ end }}
+{{ with (eq .Site.Params.Terminal.scheme "shell-ubuntu") }} 
+    {{- $terminal_style = resources.Get "sass/ubuntu.scss" | resources.ToCSS | minify -}}
+    {{- $terminal_style = $terminal_style.Content -}}
+{{ end }}
+{{ with (eq .Site.Params.Terminal.scheme "shell-retro") }}
+    {{- $terminal_style = resources.Get "sass/retro.scss" | resources.ToCSS | minify -}}
+    {{- $terminal_style = $terminal_style.Content -}}
+{{ end }}
+{{ $themeData := getJSON "https://raw.githubusercontent.com/Gogh-Co/Gogh/master/data/themes.json" }}
+{{ range $t := $themeData.themes }}
+    {{if eq $t.name $.Site.Params.Terminal.scheme }}
+        {{ $terminal_style = printf "body{background:%s}body #terminal{color:%s}body #user{color:%s}body #dir{color:%s}body .Typewriter__cursor{color:%s}a{color:%s}" $t.background $t.cursor $t.color_03 $t.color_05 $t.cursor $t.cursor | safeCSS }}
+    {{ end }}
+{{ end }}
+
+{{ $terminal_style | safeCSS }}
+</style>
+{{with (eq .Site.Params.Terminal.glowFX 1)}}
+	{{ $vars := dict
+		"glow_color_user" site.Params.Terminal.GlowColors.glowColorUser
+		"glow_color_directory" site.Params.Terminal.GlowColors.glowColorDirectory
+		"glow_base_alpha" site.Params.Terminal.GlowColors.glowBaseAlpha
+		"glow_alpha_change" site.Params.Terminal.GlowColors.glowAlphaChange
+	}}
+	{{ $options := dict
+		"targetPath" "css/glow.css"
+		"transpiler" "dartsass"
+		"vars" $vars
+	}}
+	
+	{{- $glow_css := resources.Get "sass/glow.scss" -}}
+	{{- $glow_css := $glow_css | resources.ToCSS $options | resources.Minify | resources.Fingerprint -}}
+	<link rel="stylesheet" href="{{ $glow_css.RelPermalink }}" />
+{{end}}
+
+{{with (eq .Site.Params.Terminal.crtFX 1)}}
+	{{ $options := dict
+		"targetPath" "css/scanlines.css"
+		"transpiler" "dartsass"
+	}}
+	
+	{{- $scanlines_css := resources.Get "sass/scanlines.scss" -}}
+	{{- $scanlines_css := $scanlines_css | resources.ToCSS $options | resources.Minify | resources.Fingerprint -}}
+	<link rel="stylesheet" href="{{ $scanlines_css.RelPermalink }}" />
+{{end}}

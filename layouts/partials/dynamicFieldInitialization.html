@@ -1,0 +1,28 @@
+{{if and ((eq .Params.useDynamicFields 1)) (.Params.dynamicFieldDefinition)}}
+	{{- partial "dynamicFieldFramework.html" . -}}
+	{{range $Dependency := .Params.dynamicFieldDependencies }}
+		{{- partial printf "dynamicFieldDependencies/%s" $Dependency . -}}
+	{{end}}
+	{{- partial printf "dynamicFieldDefinitions/%s" .Params.dynamicFieldDefinition . -}}
+	<script type="text/javascript">
+		const DYNAMIC_FIELD_DATA = getDynamicFieldData();
+	</script>
+{{end}}
+{{if (eq .IsHome true) }}
+    {{ if eq (substr .Site.Params.Terminal.description -3 3) ".md" }}
+				{{- partial "dynamicFieldFramework.html" . -}}
+				{{$definitionFilename := ""}}
+				{{$dependencyFiles := slice}}
+        {{ with .Site.GetPage .Site.Params.Terminal.description }}
+					{{$definitionFilename = .Params.dynamicFieldDefinition}}
+					{{$dependencyFiles = .Params.dynamicFieldDependencies }}
+				{{end}}
+				{{range $Dependency := $dependencyFiles }}
+					{{- partial (printf "dynamicFieldDependencies/%s" $Dependency) . -}}
+				{{end}}
+				{{- partial (printf "dynamicFieldDefinitions/%s" $definitionFilename) . -}}
+				<script type="text/javascript">
+					const DYNAMIC_FIELD_DATA = getDynamicFieldData();
+				</script>
+		{{ end }}
+{{ end }}

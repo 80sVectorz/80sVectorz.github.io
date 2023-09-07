@@ -1,0 +1,35 @@
+@use "sass:color";
+@use "hugo:vars" as h;
+
+@mixin glow-effect($id, $target-color) {
+	$glow-color-a: rgba($target-color, h.$glow-base-alpha);
+	$alpha-change-converted: percentage(calc(h.$glow-alpha-change/100));
+	$glow-color-b: color.scale($glow-color-a, $alpha: -($alpha-change-converted));
+	
+	@keyframes #{$id} {
+		from {
+			text-shadow: 0 0 2px $glow-color-a, 0 0 5px $glow-color-a, 0 0 6px $glow-color-a, 0 0 10px $glow-color-a, 0 0 12px $glow-color-a, 0 0 15px $glow-color-a, 0 0 17px $glow-color-a;
+		}
+		to {
+			text-shadow: 0 0 2px $glow-color-b, 0 0 5px $glow-color-b, 0 0 6px $glow-color-b, 0 0 10px $glow-color-b, 0 0 12px $glow-color-b, 0 0 15px $glow-color-b, 0 0 17px $glow-color-b;
+}
+	}
+}
+
+body{
+
+.glow-user {
+	@include glow-effect(animation-glow-user, h.$glow_color_user);
+	-webkit-animation: animation-glow-user 1s ease-in-out infinite alternate;
+	-moz-animation: animation-glow-user 1s ease-in-out infinite alternate;
+	animation: animation-glow-user 1s ease-in-out infinite alternate;
+}
+
+.glow-directory {
+	@include glow-effect(animation-glow-directory, h.$glow_color_directory);
+	-webkit-animation: animation-glow-directory 1s ease-in-out infinite alternate;
+	-moz-animation: animation-glow-directory 1s ease-in-out infinite alternate;
+	animation: animation-glow-directory 1s ease-in-out infinite alternate;
+}
+
+}

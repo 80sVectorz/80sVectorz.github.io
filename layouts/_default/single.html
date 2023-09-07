@@ -1,0 +1,36 @@
+{{ define "main" }}
+		{{$isHome := false}}
+		{{$classUser := ""}}
+		{{$classDirectory := ""}}
+		{{with (eq .Site.Params.Terminal.glowFX 1 )}} {{$classUser = "class='glow-user'"}} {{end}}
+		{{with (eq .Site.Params.Terminal.glowFX 1 )}} {{$classDirectory = "class='glow-directory'"}} {{end}}
+    {{ $env := printf "<strong><span %s id='user'>%s@%s</span><span id='terminal'>:</span><span %s id='dir'>~/%s</span></strong><span id='terminal'>$</span>" $classUser .Site.Params.Terminal.userName .Site.Params.Terminal.pcName $classDirectory "" | safeHTML }}
+    {{ $envWithDir := printf "<strong><span %s id='user'>%s@%s</span><span id='terminal'>:</span><span %s id='dir'>~/%s</span></strong><span id='terminal'>$</span>" $classUser .Site.Params.Terminal.userName .Site.Params.Terminal.pcName $classDirectory  .Site.Params.Terminal.workDir | safeHTML }}
+
+    {{ $cat := printf "<span id='terminal'>cat %s</span>" .Params.catFile | safeHTML }}
+
+    {{ $title := printf "<h1 id='title'>%s</h1>" .Title}}
+    {{ $title := printf "<span id='terminal'>%s</span>" $title}}
+    {{ $content := printf "<span id='terminal'>%s</span>" .Content }}
+
+    {{ $backSuggestion := "<span id='terminal' ><a onclick='triggerBack()'>cd ~/ ; clear</a></span>" | safeHTML }}
+    {{ $back := "<span id='terminal' >cd ~/ ; clear</span>" | safeHTML }}
+
+    {{ $ps1Delay := $.Site.Params.Terminal.ps1Delay }}
+    {{ $commandDelay := $.Site.Params.Terminal.commandDelay }}
+    {{ $interactiveDelay := $.Site.Params.Terminal.interactiveDelay }}
+		
+    {{ partial "partials/typeActivity.html" (dict 
+"envWithDir" $envWithDir 
+"context" . 
+"title" $title 
+"content" $content 
+"titleDelay" $.Site.Params.Terminal.titleDelay 
+"contentDelay" $.Site.Params.Terminal.contentDelay  
+"cat" $cat 
+"backSuggestion" $backSuggestion 
+"back" $back
+"commandDelay" $commandDelay 
+"ps1Delay" $ps1Delay 
+"interactiveDelay" $interactiveDelay )}}
+{{end}}

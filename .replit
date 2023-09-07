@@ -1,0 +1,6 @@
+compile = "hugo --theme='hugo-theme-shell'"
+run = "miniserve public --index index.html"
+
+[nix]
+channel = "stable-23_05"
+

@@ -1,0 +1,76 @@
+{{ define "main" }}
+		{{$classUser := ""}}
+		{{$classDirectory := ""}}
+		{{with (eq .Site.Params.Terminal.glowFX 1 )}} {{$classUser = "class='glow-user'"}} {{end}}
+		{{with (eq .Site.Params.Terminal.glowFX 1 )}} {{$classDirectory = "class='glow-directory'"}} {{end}}
+    {{ $env := printf "<strong><span %s id='user'>%s@%s</span><span id='terminal'>:</span><span %s id='dir'>~/%s</span></strong><span id='terminal'>$</span>" $classUser .Site.Params.Terminal.userName .Site.Params.Terminal.pcName $classDirectory "" | safeHTML }}
+    {{ $envWithDir := printf "<strong><span %s id='user'>%s@%s</span><span id='terminal'>:</span><span %s id='dir'>~/%s</span></strong><span id='terminal'>$</span>" $classUser .Site.Params.Terminal.userName .Site.Params.Terminal.pcName $classDirectory  .Site.Params.Terminal.workDir | safeHTML }}
+
+    {{ $cd := printf "<span id='terminal'>cd %s</span>" .Site.Params.Terminal.workDir | safeHTML }}
+    {{ $cat := printf "<span id='terminal'>cat %s</span>" .Site.Params.Terminal.profile | safeHTML }}
+
+    {{ $description := "" }}
+    {{ if eq (substr .Site.Params.Terminal.description -3 3) ".md" }}
+        {{ $s := "" }}
+        {{ with .Site.GetPage .Site.Params.Terminal.description }}
+            <!-- replace the first  p tag with a br tag  -->
+            {{ $s = replaceRE "</?p[^>]*>" "" .Content 1 }}
+        {{ end }}
+	    {{ $description = printf "<span id='terminal'>%s</span>" $s | safeHTML}}
+	    {{ else }}
+	    {{ $limit := sub (len (findRE "\n" .Site.Params.Terminal.description)) 1 }}
+	    {{ $description = printf "<span id='terminal'>%s</span>" .Site.Params.Terminal.description }}
+	    {{ $description = replaceRE "\n" "<br>" $description $limit| safeHTML }}
+    {{ end }}
+
+    {{ $tree := "" }}
+    {{ $leaf := "" }}
+    {{ if .Site.Params.Tree.use }}
+    {{ $tree = "<span id='terminal'>tree ./</span>" | safeHTML}}
+    {{ $leaf = printf "<strong><span %s id='dir'>./</span></strong><br>" $classDirectory | safeHTML}}
+        {{ range $index, $val := .Site.Params.Tree.files }}
+            {{ $ac := index $val 0}}
+            {{ $link := index $val 1}}
+
+            <!-- pass link (i.e. http, https) and mailto -->
+            {{ $l := $.Site.GetPage $link }}
+            {{ if $l }}
+                {{ $link = $l.Permalink}}
+            {{ end }}
+            
+						{{ $quotedLink := printf "&quot;%s&quot;" $link }}
+            {{ if eq (add $index 1) (len $.Site.Params.Tree.files) }}
+            {{ $leaf = printf "<span id='terminal'>%s└── <a class='fake-button' onClick='triggerLeaf(%s)'>%s</a></span>" $leaf $quotedLink $ac | safeHTML}}
+            {{ else }}
+            {{ $leaf = printf "<span id='terminal'>%s├── <a class='fake-button' onClick='triggerLeaf(%s)'>%s</a></span><br>" $leaf $quotedLink $ac | safeHTML}}
+            {{ end }}
+        {{ end }}
+    {{ end }}
+
+    {{ $clear := "<span id='terminal'>clear</span>" | safeHTML}}
+    {{ $end := $env }}
+
+    {{ $payload := delimit (slice $cd $cat $description $tree $leaf $end) "" }}
+
+    {{ $ps1Delay := .Site.Params.Terminal.ps1Delay }}
+    {{ $stdoutDelay := .Site.Params.Terminal.stdoutDelay }}
+    {{ $commandDelay := .Site.Params.Terminal.commandDelay }}
+    {{ $commandStartDelay := .Site.Params.Terminal.commandStartDelay }}
+    {{ $interactiveStartDelay := .Site.Params.Terminal.interactiveStartDelay }}
+
+    {{ partial "partials/typeIndex.html" (dict 
+"context" . 
+"env" $env 
+"cd" $cd 
+"envWithDir" $envWithDir 
+"cat" $cat 
+"description" $description 
+"tree" $tree 
+"leaf" $leaf 
+"clear" $clear 
+"ps1Delay" $ps1Delay 
+"stdoutDelay" $stdoutDelay 
+"commandDelay" $commandDelay 
+"commandStartDelay" $commandStartDelay 
+"interactiveStartDelay" $interactiveStartDelay ) }}
+{{ end }}

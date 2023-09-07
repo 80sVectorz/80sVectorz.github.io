@@ -1,0 +1,57 @@
+<script type="text/javascript">
+	function calculateAge(birthDate) {
+		// Parse the birth date string into a Date object
+		const birthDateObj = new Date(birthDate);
+	
+		// Get the current date
+		const currentDate = new Date();
+	
+		// Calculate the age by subtracting the birth year from the current year
+		var age = currentDate.getFullYear() - birthDateObj.getFullYear();
+	
+		// Check if the current date has passed the birthday for this year
+		// If not, decrement the age by 1
+		if (
+			currentDate.getMonth() < birthDateObj.getMonth() ||
+			(currentDate.getMonth() === birthDateObj.getMonth() &&
+				currentDate.getDate() < birthDateObj.getDate())
+		) {
+			age--;
+		}
+	
+		return age;
+	}
+	
+	function daysUntilNextBirthday(birthDate) {
+	  // Parse the birth date string into a Date object
+	  const birthDateObj = new Date(birthDate);
+	
+	  // Get the current date
+	  const currentDate = new Date();
+	
+	  // Get the birth date for the current year
+	  const currentYearBirthday = new Date(
+	    currentDate.getFullYear(),
+	    birthDateObj.getMonth(),
+	    birthDateObj.getDate()
+	  );
+	
+	  // Calculate the time difference between the current date and the next birthday
+	  const timeDifference = currentYearBirthday - currentDate;
+	
+	  // Check if the next birthday is already past this year
+	  // If yes, calculate the time difference for the next year's birthday
+	  if (timeDifference < 0) {
+	    const nextYearBirthday = new Date(
+	      currentDate.getFullYear() + 1,
+	      birthDateObj.getMonth(),
+	      birthDateObj.getDate()
+	    );
+	    return Math.ceil((nextYearBirthday - currentDate) / (1000 * 60 * 60 * 24));
+	  }
+	
+	  // Return the number of days left until the next birthday
+	  return Math.ceil(timeDifference / (1000 * 60 * 60 * 24));
+	}
+	
+</script>

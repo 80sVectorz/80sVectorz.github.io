@@ -1,0 +1,35 @@
+@import "default.scss";
+
+:root {
+    --cursor-visibility: hidden;
+}
+
+.suggestion{
+	opacity: 50%;
+}
+
+
+#content {
+    max-width: 80vmin;
+    // min-height: 90vmin; // slightly smaller top margin than the index.html page
+}
+
+pre {
+    overflow-x: scroll;
+    white-space: pre;
+}
+
+#activity-title, #activity-content {
+    &:after {
+        @extend .cursor;
+    }
+}
+
+@keyframes blink {
+    0% {
+        opacity: 0;
+    }
+    100% {
+        opacity: 1;
+    }
+}
