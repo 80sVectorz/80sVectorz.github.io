@@ -1,6 +1,5 @@
 *.nix
 *.tar.gz
-/themes/hugo-theme-shell
 
 # Generated files by hugo
 /public/
