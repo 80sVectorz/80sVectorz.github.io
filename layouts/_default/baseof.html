@@ -1,0 +1,21 @@
+<!DOCTYPE html>
+<html lang="{{ with .Site.LanguageCode }}{{ . }}{{ else }}en{{ end }}">
+    {{- partial "head.html" . -}}
+    <body {{with (eq .Site.Params.Terminal.crtFX 1)}} class="crt" {{end}} >
+				{{with (eq .Site.Params.Terminal.useSFX 1)}} {{- partial "sfxFramework.html" . -}} {{end}}
+				{{- partial "dynamicFieldFramework.html" . -}}
+				{{- partial "dynamicFieldInitialization.html" . -}}
+				{{- partial "typeDependencies.html" . -}}
+        {{- partial "header.html" . -}}
+				{{with (eq .Site.Params.Terminal.useSFX 1)}} 
+				<span id="sfx-prompt">Click anywhere for the full experience</span> 
+				{{end}}
+        <div id="content">
+        {{- block "main" . }}{{- end }}
+				</div>
+				<br>
+				<a id="credit-link" href="https://github.com/Yukuro/hugo-theme-shell">Base Template made by @Yukuro</a>
+				{{with (eq .Site.Params.Terminal.useSFX 1)}} <div id="sfx-bypass"></div> {{end}}
+        {{- partial "footer.html" . -}}
+    </body>
+</html>

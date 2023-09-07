@@ -1,0 +1,35 @@
+$char-color: #cccccc;
+$href-color: #63ff83;
+
+body {
+    background: #1b1d1e;
+
+    #terminal {
+        color: $char-color;
+    }
+
+    #user {
+        color: #ff8080;
+    }
+
+    #dir {
+        color: #75c3ff;
+    }
+
+		.fake-button{
+			text-decoration-color: $char-color;
+		}
+	
+		a[href]{
+			color: $href-color;
+			text-decoration-color: $href-color;
+		}
+	
+    .Typewriter__cursor {
+        color: $char-color;
+    }
+}
+
+a {
+    color: $char-color;
+}

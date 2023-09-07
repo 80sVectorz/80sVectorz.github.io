@@ -1,5 +1,6 @@
-run = "hugo && miniserve public --index index.html"
-entrypoint = "content/posts/hello.md"
+compile = "hugo --theme='hugo-theme-shell'"
+run = "miniserve public --index index.html"
 
 [nix]
-channel = "stable-22_11"
+channel = "stable-23_05"
+

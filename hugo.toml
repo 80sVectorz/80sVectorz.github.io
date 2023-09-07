@@ -1,0 +1,4 @@
+baseURL = '/'
+languageCode = 'en-us'
+title = "80sVectorz's Profile"
+theme = "hugo-theme-shell"

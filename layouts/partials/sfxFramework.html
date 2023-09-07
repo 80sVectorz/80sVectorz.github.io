@@ -1,0 +1,145 @@
+<style>
+	#sfx-bypass{
+		margin:0;
+	  content: " ";
+	  display: block;
+	  position: absolute;
+	  top: 0;
+	  left: 0;
+	  bottom: 0;
+	  right: 0;
+		z-index: 0;
+	}
+
+	#sfx-prompt{
+		z-index:-1;
+		position: absolute;
+	}
+</style>
+
+
+<script type="text/javascript">
+	
+	function getRandomInt(min, max) {
+	  min = Math.ceil(min);
+	  max = Math.floor(max);
+	  return Math.floor(Math.random() * (max - min) + min); // The maximum is exclusive and the minimum is inclusive
+	}
+
+	const nTextSfx = 25;
+	const nSpacebarSfx = 11;
+	const nEnterSfx = 7;
+
+	var canPlaySfx = false;
+	
+	var sfxTextElements = [];
+	var sfxSpacebarElements = [];
+	var sfxEnterElements = [];
+
+	for (let i = 1; i<= nTextSfx ; i++) {
+		var el = document.createElement('audio');
+		el.id       = `sfx-text${i}`;
+		el.src      = `/sfx/text/text${i}.wav`;
+		el.type     = 'audio/wav';
+		el.loop = true;
+		el.volume = 0;
+		document.body.appendChild(el);
+	}
+	for (let i = 1; i<= nSpacebarSfx ; i++) {
+		var el = document.createElement('audio');
+		el.id       = `sfx-spacebar${i}`;
+		el.src      = `/sfx/spacebar/space${i}.wav`;
+		el.type     = 'audio/wav';
+		el.loop = true;
+		el.volume = 0;
+		document.body.appendChild(el);
+	}
+	for (let i = 1; i<= nEnterSfx ; i++) {
+		var el = document.createElement('audio');
+		el.id       = `sfx-enter${i}`;
+		el.src      = `/sfx/enter/enter${i}.wav`;
+		el.type     = 'audio/wav';
+		el.loop = true;
+		el.volume = 0;
+		document.body.appendChild(el);
+	}
+
+	async function playSound(type,nInstances){
+		if (canPlaySfx){
+			var i = -1;
+			var tries = 0;
+			while (true){
+				i = getRandomInt(1,nInstances+1)
+				var audio = document.getElementById(`sfx-${type}${i}`);
+				if (audio.volume == 0){
+					break;
+				}
+				
+				tries++
+				if(tries > 10){
+					return;
+				}
+			}
+			audio.currentTime = 0.0;
+			let waitTime = audio.duration*1000;
+			audio.volume = 1.0;
+			await new Promise(r => setTimeout(r, waitTime));
+			audio.volume=0.0;
+		}
+	}
+	
+	async function playTextSound(){
+		await playSound("text",nTextSfx);
+	}
+	
+	async function playSpacebarSound(){
+		await playSound("spacebar",nSpacebarSfx);
+	}
+	
+	async function playEnterSound(){
+		await playSound("enter",nEnterSfx);
+	}
+
+	function initializeSfx() {
+		for (let i = 1; i<= nTextSfx ; i++) {
+			var el = document.getElementById(`sfx-text${i}`);
+			el.play();
+		}
+		for (let i = 1; i<= nSpacebarSfx ; i++) {
+			var el = document.getElementById(`sfx-spacebar${i}`);
+			el.play();
+		}
+		for (let i = 1; i<= nEnterSfx ; i++) {
+			var el = document.getElementById(`sfx-enter${i}`);
+			el.play();
+		}
+		document.getElementById("sfx-bypass").remove();
+		document.getElementById("sfx-prompt").remove();
+		canPlaySfx = true;
+	}
+	
+	if(!!window.chrome){
+		document.addEventListener('DOMContentLoaded', (event) => {
+			document.addEventListener('mousemove', function(e) {
+				if(canPlaySfx){
+					return;
+				}
+			  let el = document.getElementById('sfx-prompt');
+				let rect = el.getBoundingClientRect();
+				let centerAdjustX = rect.width/2;
+				let centerAdjustY = rect.height/2;
+			  let left = e.pageX-centerAdjustX;
+			  let top = e.pageY+centerAdjustY;
+			  el.style.left = left + 'px';
+			  el.style.top = top + 'px';
+			});	
+			document.addEventListener("click",function() {
+				initializeSfx();
+			}, {once:true} );
+		}, {once:true});
+	} else {
+		document.addEventListener('DOMContentLoaded', (event) => {
+			initializeSfx();
+		},{once:true});
+	}
+</script>

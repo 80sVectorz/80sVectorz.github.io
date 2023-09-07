@@ -1,0 +1,32 @@
+<span id="ps1_01"></span> <span id="cat"></span> <br>
+<span id="activity-title"></span> <br>
+<span id="activity-content"></span> <br>
+<span id="ps1_02"></span> <span class="suggestion fake-button" id="back-suggestion"></span> <span id="back"></span>
+
+<script type="text/javascript">
+    const commandDelay = parseDelay("{{ .commandDelay }}"),
+    		ps1Delay = parseDelay("{{ .ps1Delay }}"),
+    		commandStartDelay = parseDelay("{{ .commandStartDelay }}"),
+    		titleDelay = parseDelay("{{ .titleDelay }}"),
+    		interactiveStartDelay = parseDelay("{{ .interactiveStartDelay }}"),
+        contentDelay = parseDelay("{{ .contentDelay }}");
+	
+    const typeeffetct = async () => {
+        await typewriter("{{ .envWithDir }}", "ps1_01", ps1Delay);
+				await typewriter("{{ .cat }}", "cat", commandDelay, commandStartDelay);
+        await typewriter("{{ .title }}", "activity-title", titleDelay, 0);
+        await typewriter("{{ .content }}", "activity-content", contentDelay, 0);
+        await typewriter("{{ .envWithDir }}", "ps1_02", ps1Delay);
+				await typewriter("{{ .backSuggestion }}", "back-suggestion", 0, 0);
+        return;
+    }
+
+		async function triggerBack() {
+			var suggestionElement = document.getElementById("back-suggestion");
+			suggestionElement.remove();
+			await typewriter("{{ .back }}", "back", commandDelay, interactiveStartDelay);
+			document.location.href="/";
+		}
+
+    typeeffetct()
+</script>
