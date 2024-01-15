@@ -7,6 +7,10 @@ draft: false
 
 List of my public projects/repos in no particular order:
 
+- [ComfyUI Static Primitives](https://github.com/80sVectorz/ComfyUI-Static-Primitives)
+This project aims to add "Static primitives" to ComfyUI allowing you to reroute data primitives.  
+I try to update it when people open issues, but I'm not very active with updating it.
+
 - [Chimer](https://github.com/80sVectorz/chimer)  
 Chimer is a CLI timer application I made. The main reason I made it was to practice Rust.
 
