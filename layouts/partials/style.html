@@ -12,6 +12,7 @@
     {{- $terminal_style = resources.Get "sass/vectrex.scss" | resources.ToCSS | minify -}}
     {{- $terminal_style = $terminal_style.Content -}}
 {{ end }}
+{{/*
 {{ with (eq .Site.Params.Terminal.scheme "shell-powershell") }}
     {{- $terminal_style = resources.Get "sass/powershell.scss" | resources.ToCSS | minify -}}
     {{- $terminal_style = $terminal_style.Content -}}
@@ -30,7 +31,7 @@
         {{ $terminal_style = printf "body{background:%s}body #terminal{color:%s}body #user{color:%s}body #dir{color:%s}body .Typewriter__cursor{color:%s}a{color:%s}" $t.background $t.cursor $t.color_03 $t.color_05 $t.cursor $t.cursor | safeCSS }}
     {{ end }}
 {{ end }}
-
+*/}}
 {{ $terminal_style | safeCSS }}
 </style>
 {{with (eq .Site.Params.Terminal.glowFX 1)}}

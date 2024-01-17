@@ -7,9 +7,6 @@
 				{{- partial "dynamicFieldInitialization.html" . -}}
 				{{- partial "typeDependencies.html" . -}}
         {{- partial "header.html" . -}}
-				{{with (eq .Site.Params.Terminal.useSFX 1)}} 
-				<span id="sfx-prompt">Click anywhere for the full experience</span> 
-				{{end}}
         <div id="content">
         {{- block "main" . }}{{- end }}
 				</div>
