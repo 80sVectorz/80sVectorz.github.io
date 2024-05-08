@@ -18,7 +18,7 @@ Aliases:
 - Reality.hack();
 
 Gender: Male  
-Pronouns: he/him
+Pronouns: He/Him
 
 Age: <#AGE>  
 Birthday: 19-10-2005  
