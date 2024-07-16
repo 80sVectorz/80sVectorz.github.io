@@ -12,6 +12,10 @@
     {{- $terminal_style = resources.Get "sass/vectrex.scss" | resources.ToCSS | minify -}}
     {{- $terminal_style = $terminal_style.Content -}}
 {{ end }}
+{{ with (eq .Site.Params.Terminal.scheme "tron") }}
+    {{- $terminal_style = resources.Get "sass/tron.scss" | resources.ToCSS | minify -}}
+    {{- $terminal_style = $terminal_style.Content -}}
+{{ end }}
 {{/*
 {{ with (eq .Site.Params.Terminal.scheme "shell-powershell") }}
     {{- $terminal_style = resources.Get "sass/powershell.scss" | resources.ToCSS | minify -}}

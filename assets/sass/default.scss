@@ -1,4 +1,9 @@
-@import url("https://fonts.googleapis.com/css2?family=Inconsolata&display=swap");
+// @import url("https://fonts.googleapis.com/css2?family=Inconsolata&display=swap");
+@font-face {
+    font-family: "SPERRYPC8";
+    src: url("/fonts/Ac437_SperryPC_8x16.ttf") format("truetype");
+    font-style: normal;
+}
 
 :root {
     --cursor-visibility: hidden;
@@ -7,8 +12,9 @@
 html,
 body {
     width: 100%;
+    height: max-content;
     // overflow: auto;
-    font-family: "Inconsolata", monospace;
+    font-family: SPERRYPC8, monospace;
     font-size: 4vmin;
     line-height: 4.1vmin;
     font-weight: normal;
@@ -16,18 +22,18 @@ body {
 
 body {
     margin: 0;
-		margin-top: 5vh;
-		margin-bottom: 2vh;
     display: flex;
     flex-direction: column;
-    justify-content: center;
+    justify-content: flex-start;
     align-items: center;
 }
 
 #content {
 	min-width: 82vmin;
-	min-height: 82vmin;
+	min-height: 85vh;
 	z-index: 1;
+    height: fit-content;
+    margin-top: 2vh;
 }
 
 ::-webkit-scrollbar {
@@ -91,7 +97,7 @@ a[href]{
 
 #credit-link {
     position: relative;
-    bottom: 0;//-0.5vh;
+    top: 2vh;
     font-size: 2vmin;
     display: block;
     text-align: center;
