@@ -1,0 +1,45 @@
+$char-color: #c1f8fa;
+$href-color: #97fdac;
+$border-color: #b1faf4;
+
+body {
+    background: #0f1111;
+
+    #terminal {
+        color: $char-color;
+    }
+
+    #user {
+        color: #ffacac;
+    }
+
+    #dir {
+        color: #acdbff;
+    }
+
+		.fake-button{
+			text-decoration-color: $char-color;
+		}
+	
+		a[href]{
+			color: $href-color;
+			text-decoration-color: $href-color;
+		}
+	
+    .Typewriter__cursor {
+        color: $char-color;
+    }
+}
+
+a {
+    color: $char-color;
+}
+
+#content {
+    border-radius: 1%;
+    padding: 2vmin;
+    border: solid $border-color;
+    border-width: 2px 2px;
+
+    box-shadow: 0 0 10px 1px $border-color, inset 0 0 10px 1px $border-color;
+}
