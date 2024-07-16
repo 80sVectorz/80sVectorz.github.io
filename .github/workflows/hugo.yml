@@ -40,8 +40,6 @@ jobs:
             ssh-private-key: ${{ secrets.PRIVATE_KEY }}
       - name: Get content from private repo
         run: "git clone git@github.com:80sVectorz/WebsiteContent.git"
-      - run: rm -rf ./content
-      - run: mv ./WebsiteContent ./content
       - run: ls -al
       - name: Install Hugo CLI
         run: |
@@ -49,10 +47,12 @@ jobs:
           && sudo dpkg -i ${{ runner.temp }}/hugo.deb
       - name: Install Dart Sass
         run: sudo snap install dart-sass
-      # - name: Checkout
-      #   uses: actions/checkout@v3
-      #   with:
-      #     submodules: recursive
+      - name: Checkout
+        uses: actions/checkout@v3
+        with:
+          submodules: recursive
+      - run: rm -rf ./content
+      - run: mv ./WebsiteContent ./content
       - name: Setup Pages
         id: pages
         uses: actions/configure-pages@v3
