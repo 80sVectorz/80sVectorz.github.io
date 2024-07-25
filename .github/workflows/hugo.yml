@@ -73,10 +73,8 @@ jobs:
         with:
           python-version: 3.8 #install the python needed
           - name: Install dependencies
-          run: |
-            python -m pip install --upgrade pip
-            pip install -r requirements.txt
-            python ./WebsiteContent/encryptor.py
+          run: python -m pip install --upgrade pip ; pip install -r requirements.txt
+        run: python ./WebsiteContent/encryptor.py
       - name: Upload artifact
         uses: actions/upload-pages-artifact@v2
         with:
