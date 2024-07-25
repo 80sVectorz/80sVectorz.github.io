@@ -52,7 +52,7 @@ jobs:
         run: "git clone git@github.com:80sVectorz/WebsiteContent.git"
       - run: ls -al
       - run: rm -rf ./content
-      - run: mv ./WebsiteContent ./content
+      - run: mv ./WebsiteContent/content ./content
       - name: Setup Pages
         id: pages
         uses: actions/configure-pages@v3
@@ -68,6 +68,15 @@ jobs:
             --minify \
             --baseURL "${{ steps.pages.outputs.base_url }}/" \
             --theme="hugo-theme-shell"
+      - name: Encryption pass
+        uses: actions/setup-python@v2
+        with:
+          python-version: 3.8 #install the python needed
+          - name: Install dependencies
+          run: |
+            python -m pip install --upgrade pip
+            pip install -r requirements.txt
+            python ./WebsiteContent/encryptor.py
       - name: Upload artifact
         uses: actions/upload-pages-artifact@v2
         with:
