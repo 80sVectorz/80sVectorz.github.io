@@ -3,7 +3,6 @@
 		{{$classDirectory := ""}}
 		{{with (eq .Site.Params.Terminal.glowFX 1 )}} {{$classUser = "class='glow-user'"}} {{end}}
 		{{with (eq .Site.Params.Terminal.glowFX 1 )}} {{$classDirectory = "class='glow-directory'"}} {{end}}
-    {{ partial "partials/encryptedPostsLogic.html"}}
     {{ $env := printf "<strong><span %s id='user'>%s@%s</span><span id='terminal'>:</span><span %s id='dir'>~/%s</span></strong><span id='terminal'>$</span>" $classUser .Site.Params.Terminal.userName .Site.Params.Terminal.pcName $classDirectory "" | safeHTML }}
     {{ $envWithDir := printf "<strong><span %s id='user'>%s@%s</span><span id='terminal'>:</span><span %s id='dir'>~/%s</span></strong><span id='terminal'>$</span>" $classUser .Site.Params.Terminal.userName .Site.Params.Terminal.pcName $classDirectory  .Site.Params.Terminal.workDir | safeHTML }}
 
