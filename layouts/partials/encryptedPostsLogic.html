@@ -13,7 +13,7 @@
         return hashBase64;
     }
 
-    function decrypt(encryptedText) {
+    function decrypt(encryptedText, fernetSecret) {
         const token = new fernet.Token({
           secret: fernetSecret,
           token: encryptedText,
@@ -34,7 +34,7 @@
             const targetFileEncryptedFetchResponse = await fetch(`./encrypted/${targetFileHash}/index.html`);
             const targetFileEncryptedContents = await targetFileEncryptedFetchResponse.text();
 
-            const decryptedFile = decrypt(targetFileEncryptedContents);
+            const decryptedFile = decrypt(targetFileEncryptedContents, fernetSecret);
 
             document.open();
             document.write(decryptedFile);
