@@ -26,15 +26,19 @@
         const queryString = window.location.search;
         const urlParams = new URLSearchParams(queryString);
         if(urlParams.has('e')){
-            var targetFile = urlParams.get('e');
+            const targetFile = urlParams.get('e');
 
-            var targetFileHash;
-            targetFileHash = await sha256(targetFile);
-            var fernetSecret  = new fernet.Secret(targetFileHash);
+            const targetFileHash = await sha256(targetFile);
+            const fernetSecret  = new fernet.Secret(targetFileHash);
 
-            var targetFileEncryptedFetchResponse = await fetch(`./encrypted/${targetFileHash}/index.html`);
-            var targetFileEncryptedContents = targetFileEncryptedFetchResponse.text();
-            console.log(targetFileEncryptedContents);
+            const targetFileEncryptedFetchResponse = await fetch(`./encrypted/${targetFileHash}/index.html`);
+            const targetFileEncryptedContents = await targetFileEncryptedFetchResponse.text();
+
+            const decryptedFile = decrypt(targetFileEncryptedContents);
+
+            document.open();
+            document.write(decryptedFile);
+            document.close();
         }
     })()
 </script>
