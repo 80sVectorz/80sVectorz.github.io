@@ -40,7 +40,9 @@
             const decryptedFile = decrypt(targetFileEncryptedContents, fernetSecret);
             console.log(decryptedFile);
 
-            document.querySelector('html').innerHTML = decryptedFile;
+            var newHTML = document.open("text/html", "replace");
+            newHTML.write(decryptedFile);
+            newHTML.close();
         })();
     }
 </script>

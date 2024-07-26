@@ -6,29 +6,29 @@
 <span id="ps1_04"></span> <span id="clear"></span>
 
 <script type="text/javascript">
-    const ps1Delay = parseDelay("{{ .ps1Delay }}"),
+        const ps1Delay = parseDelay("{{ .ps1Delay }}"),
         stdoutDelay = parseDelay("{{ .stdoutDelay }}"),
-    		commandStartDelay = parseDelay("{{ .commandStartDelay }}"),
+        commandStartDelay = parseDelay("{{ .commandStartDelay }}"),
         commandDelay = parseDelay("{{ .commandDelay }}"),
-     		interactiveStartDelay = parseDelay("{{ .interactiveStartDelay }}");
-	
+        interactiveStartDelay = parseDelay("{{ .interactiveStartDelay }}");
+
     const typeeffetct = async () => {
         await typewriter("{{ .env }}", "ps1_01", ps1Delay, 0);
-				await typewriter("{{ .cd }}", "cd", commandDelay, 0);
+        await typewriter("{{ .cd }}", "cd", commandDelay, 0);
         await typewriter("{{ .envWithDir }}", "ps1_02", ps1Delay, 0);
-				await typewriter("{{ .cat }}", "cat", commandDelay, commandStartDelay);
+        await typewriter("{{ .cat }}", "cat", commandDelay, commandStartDelay);
         await typewriter("{{ .description }}", "std_out_01", stdoutDelay, 0);
         await typewriter("{{ .envWithDir }}", "ps1_03", ps1Delay, 0);
-				await typewriter("{{ .tree }}", "tree", commandDelay, commandStartDelay);
+        await typewriter("{{ .tree }}", "tree", commandDelay, commandStartDelay);
         await typewriter("{{ .leaf }}", "std_out_02", stdoutDelay, 0);
         await typewriter("{{ .envWithDir }}", "ps1_04", ps1Delay, 0); 
         return;
     }
-	
-		async function triggerLeaf(href) {
-			await typewriter("{{ .clear }}", "clear", commandDelay, interactiveStartDelay);
-			document.location.href=href;
-		}
+
+    async function triggerLeaf(href) {
+      await typewriter("{{ .clear }}", "clear", commandDelay, interactiveStartDelay);
+      document.location.href=href;
+    }
 
     typeeffetct()
 </script>
