@@ -29,7 +29,6 @@
         const targetFile = urlParams.get('e');
 
         (async() => {
-            document.querySelector('body').innerHTML = "";
             const targetFileHash = await sha256(targetFile);
             console.log("Got encrypted file hash");
             const fernetSecret  = new fernet.Secret(targetFileHash);
