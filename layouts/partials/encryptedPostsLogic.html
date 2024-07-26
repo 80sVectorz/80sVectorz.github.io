@@ -15,7 +15,7 @@
 
     function decrypt(encryptedText) {
         const token = new fernet.Token({
-          secret: fernetSecret,
+          secret: fernet.Secret,
           token: encryptedText,
           ttl: 0,
         });
