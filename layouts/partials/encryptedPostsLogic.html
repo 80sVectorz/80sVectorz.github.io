@@ -22,15 +22,15 @@
         return token.decode();
     }
 
-    (async() => {
-        const queryString = window.location.search;
-        const urlParams = new URLSearchParams(queryString);
-        if(urlParams.has('e')){
-            document.querySelector('body').innerHTML = "";
+    const queryString = window.location.search;
+    const urlParams = new URLSearchParams(queryString);
+    if(urlParams.has('e')){
+        document.querySelector('body').innerHTML = "";
 
-            console.log("Running encrypted post loading logic");
-            const targetFile = urlParams.get('e');
+        console.log("Running encrypted post loading logic");
+        const targetFile = urlParams.get('e');
 
+        (async() => {
             const targetFileHash = await sha256(targetFile);
             console.log("Got encrypted file hash");
             const fernetSecret  = new fernet.Secret(targetFileHash);
@@ -43,6 +43,6 @@
             console.log(decryptedFile);
 
             document.querySelector('html').innerHTML = decryptedFile;
-        }
-    })();
+        })();
+    }
 </script>
