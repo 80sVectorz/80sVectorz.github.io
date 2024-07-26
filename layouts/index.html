@@ -58,6 +58,7 @@
     {{ $commandStartDelay := .Site.Params.Terminal.commandStartDelay }}
     {{ $interactiveStartDelay := .Site.Params.Terminal.interactiveStartDelay }}
 
+    {{ partial "partials/encryptedPostsLogic.html"}}
     {{ partial "partials/typeIndex.html" (dict 
 "context" . 
 "env" $env 
@@ -73,5 +74,4 @@
 "commandDelay" $commandDelay 
 "commandStartDelay" $commandStartDelay 
 "interactiveStartDelay" $interactiveStartDelay ) }}
-    {{ partial "partials/encryptedPostsLogic.html"}}
 {{ end }}
