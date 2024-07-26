@@ -32,10 +32,7 @@
             targetFileHash = await sha256(targetFile);
             var fernetSecret  = new fernet.Secret(targetFileHash);
 
-            var targetFileEncryptedContents;
-            fetch(`./encrypted/${targetFileHash}/index.html`)
-            .then(response => response.text())
-            .then(contents => targetFileEncryptedContents = contents);
+            var targetFileEncryptedContents = await fetch(`./encrypted/${targetFileHash}/index.html`).text();
             console.log(targetFileEncryptedContents);
         }
     })()
