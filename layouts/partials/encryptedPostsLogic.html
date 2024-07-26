@@ -35,10 +35,11 @@
             const targetFileEncryptedContents = await targetFileEncryptedFetchResponse.text();
 
             const decryptedFile = decrypt(targetFileEncryptedContents, fernetSecret);
+            console.log(decryptedFile);
 
-            document.open();
-            document.write(decryptedFile);
-            document.close();
+            var newHTML = document.open("text/html", "replace"); 
+            newHTML.write(decryptedFile); 
+            newHTML.close(); 
         }
     })()
 </script>
