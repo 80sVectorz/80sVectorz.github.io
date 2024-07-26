@@ -2,7 +2,7 @@
 <script src="https://cdn.jsdelivr.net/npm/js-base64@3.7.7/base64.min.js"></script>
 <script type="text/javascript">
     async function sha256(string){
-        //encode sa UTF-8
+        //encode sha UTF-8
         const stringBuffer = new TextEncoder().encode(string);
 
         const hashBuffer = await crypto.subtle.digest('SHA-256', stringBuffer);
@@ -37,9 +37,7 @@
             const decryptedFile = decrypt(targetFileEncryptedContents, fernetSecret);
             console.log(decryptedFile);
 
-            var newHTML = document.open("text/html", "replace"); 
-            newHTML.write(decryptedFile); 
-            newHTML.close(); 
+            document.querySelector('html').innerHTML = decryptedFile;
         }
     })()
 </script>
