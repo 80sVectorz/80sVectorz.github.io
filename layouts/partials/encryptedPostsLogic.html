@@ -1,0 +1,42 @@
+<script src="fernetBrowser.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/js-base64@3.7.7/base64.min.js"></script>
+<script type="text/javascript">
+    async function sha256(string){
+        //encode sa UTF-8
+        const stringBuffer = new TextEncoder().encode(string);
+
+        const hashBuffer = await crypto.subtle.digest('SHA-256', stringBuffer);
+
+        const hashArray = new Uint8Array(hashBuffer);
+        const hashBase64 = Base64.fromUint8Array(hashArray, true);
+
+        return hashBase64;
+    }
+
+    function decrypt(encryptedText) {
+        const token = new Token({
+          secret: fernetSecret,
+          token: encryptedText,
+          ttl: 0,
+        });
+        return token.decode();
+    }
+
+    (async() => {
+        const queryString = window.location.search;
+        const urlParams = new URLSearchParams(queryString);
+        if(urlParams.has('e')){
+            var targetFile = urlParams.get('e');
+
+            var targetFileHash;
+            targetFileHash = await sha256(targetFile);
+            var fernetSecret  = new fernet.Secret(targetFileHash);
+
+            var targetFileEncryptedContents;
+            fetch(`./encrypted/${targetFileHash}/index.html`)
+            .then(response => response.text())
+            .then(contents => targetFileEncryptedContents = contents);
+            console.log(targetFileEncryptedContents);
+        }
+    })()
+</script>
