@@ -1,4 +1,5 @@
 {{ define "main" }}
+    {{ partial "partials/encryptedPostsLogic.html" . }}
 		{{$classUser := ""}}
 		{{$classDirectory := ""}}
 		{{with (eq .Site.Params.Terminal.glowFX 1 )}} {{$classUser = "class='glow-user'"}} {{end}}
